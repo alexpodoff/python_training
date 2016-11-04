@@ -7,12 +7,13 @@ class ContactHelper:
 
     def contact_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        wd.find_element_by_link_text("home").click()
 
     def create(self, contact):
         wd = self.app.wd
         # name
         self.contact_page()
+        wd.find_element_by_link_text("add new").click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.name)
@@ -28,6 +29,15 @@ class ContactHelper:
         wd.find_element_by_name("company").click()
         wd.find_element_by_name("company").clear()
         wd.find_element_by_name("company").send_keys(contact.company)
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        self.contact_page()
+        # select 1st contact
+        wd.find_element_by_name("selected[]").click()
+        # submit delition
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.switch_to_alert().accept()
 
     def return_home_page(self):
         wd = self.app.wd
