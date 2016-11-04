@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import pytest
-
-from fixture.application import Application
 from model.contact import Contact
 from model.other import Other
 from model.other_contact import Contacts
@@ -10,13 +7,6 @@ from model.tel import Telephone
 from random_generator import mail_generator as mg
 from random_generator import name_generator as ng
 from random_generator import phone_generator as pg
-
-
-@pytest.fixture
-def app(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 
 # check mid condition
