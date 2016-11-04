@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-from application import Application
 import pytest
-from other_contact import More_contacts
-from contact import Contact
-from tel import Telephone
-from other import Other
-from secondary import Secondary
+
+from fixture.application import Application
+from model.contact import Contact
+from model.other import Other
+from model.other_contact import More_contacts
+from model.secondary import Secondary
+from model.tel import Telephone
+from random_generator import mail_generator as mg
 from random_generator import name_generator as ng
 from random_generator import phone_generator as pg
-from random_generator import mail_generator as mg
 
 
 @pytest.fixture
@@ -49,3 +50,5 @@ def test_addcontact_full(app):
     app.secondary(Secondary(address=ng(), home=ng(), notes=ng()))
     app.confirm()
     app.logout()
+
+
