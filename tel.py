@@ -1,6 +1,5 @@
 
 
-
 class Telephone:
     def __init__(self, home, mobile, work, fax):
         self.home = home
