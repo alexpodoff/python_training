@@ -7,7 +7,8 @@ class ContactHelper:
 
     def contact_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_name("add")) > 0):
+            wd.find_element_by_link_text("home").click()
 
     def create(self, contact):
         wd = self.app.wd
@@ -31,15 +32,11 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
 
-    def return_home_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
-
     def confirm(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         wd.find_element_by_css_selector("div.msgbox").click()
-        self.return_home_page()
+        self.contact_page()
 
     def fill_conact_form(self, contact):
         self.change_field_value("firstname", contact.name)
@@ -88,30 +85,35 @@ class ContactHelper:
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_conact_form(new_contact_data)
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
+        self.contact_page()
 
     def modify_additional(self, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_additional_form(new_contact_data)
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
+        self.contact_page()
 
     def modify_telephone(self, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_telephone_form(new_contact_data)
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
+        self.contact_page()
 
     def modify_other(self, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_other_form(new_contact_data)
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
+        self.contact_page()
 
     def modify_secondary(self, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_secondary_form(new_contact_data)
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
+        self.contact_page()
 
     def count(self):
         wd = self.app.wd

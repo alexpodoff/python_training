@@ -12,8 +12,9 @@ def app():
     else:
         if not fixture.is_valid():
             fixture = Application()
-    fixture.session.enshore_login(username="admin", passwd="secret")
+    fixture.session.enshure_login(username="admin", passwd="secret")
     return fixture
+
 
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):

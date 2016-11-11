@@ -24,9 +24,9 @@ class SessionHelper:
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(passwd)
         wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
-        wd.find_element_by_xpath("//div[@id='content']/form/input[4]").click()
+   #     wd.find_element_by_xpath("//div[@id='content']/form/input[4]").click()
 
-    def enshore_login(self, username, passwd):
+    def enshure_login(self, username, passwd):
         wd = self.app.wd
         if self.is_logged_in():
             if self.is_logged_in_as(username):
@@ -43,4 +43,3 @@ class SessionHelper:
         wd = self.app.wd
         if self.is_logged_in():
             self.logout()
-
