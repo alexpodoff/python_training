@@ -2,13 +2,22 @@
 from model.group import Group
 
 
-def test_modify_group(app):
+def test_modify_group_name(app):
     app.session.login(username="admin", passwd="secret")
-    app.group.modify(Group(name="new", header="mdamd", footer="oodod"))
+    app.group.modify_first_group(Group(name="new name"))
     app.session.logout()
 
+def test_modify_group_header(app):
+    app.session.login(username="admin", passwd="secret")
+    app.group.modify_first_group(Group( header="new header"))
+    app.session.logout()
+
+def test_modify_group_footer(app):
+    app.session.login(username="admin", passwd="secret")
+    app.group.modify_first_group(Group( footer="new footer"))
+    app.session.logout()
 
 def test_modify_empty_group(app):
     app.session.login(username="admin", passwd="secret")
-    app.group.modify(Group(name="", header="", footer=""))
+    app.group.modify_first_group(Group(name="", header="", footer=""))
     app.session.logout()
