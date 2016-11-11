@@ -22,12 +22,6 @@ class ContactHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
-    def fill_conact_form(self, contact):
-        self.change_field_value("firstname", contact.name)
-        self.change_field_value("lastname", contact.lastname)
-        self.change_field_value("nickname", contact.nickname)
-        self.change_field_value("company", contact.company)
-
     def delete_first_contact(self):
         wd = self.app.wd
         self.contact_page()
@@ -46,6 +40,12 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         wd.find_element_by_css_selector("div.msgbox").click()
         self.return_home_page()
+
+    def fill_conact_form(self, contact):
+        self.change_field_value("firstname", contact.name)
+        self.change_field_value("lastname", contact.lastname)
+        self.change_field_value("nickname", contact.nickname)
+        self.change_field_value("company", contact.company)
 
     def fill_additional_form(self, contact):
         self.change_field_value("middlename", contact.middlename)
@@ -112,3 +112,8 @@ class ContactHelper:
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_secondary_form(new_contact_data)
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
+
+    def count(self):
+        wd = self.app.wd
+        self.contact_page()
+        return len(wd.find_elements_by_name("selected[]"))

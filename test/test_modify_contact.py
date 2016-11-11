@@ -9,14 +9,23 @@ from random_generator import phone_generator as pg
 
 
 def test_modify_first_contact(app):
+    if app.contact.count() == 0:
+        app.contact.create(Contact(name="test"))
+        app.contact.confirm()
     app.contact.modify(Contact(name=ng(), lastname=ng(), nickname=ng(), company=ng()))
 
 
 def test_modify_empty_contact(app):
+    if app.contact.count() == 0:
+        app.contact.create(Contact(name="test"))
+        app.contact.confirm()
     app.contact.modify(Contact(name="", lastname="", nickname="", company=""))
 
 
 def test_modify_full_contact(app):
+    if app.contact.count() == 0:
+        app.contact.create(Contact(name="test"))
+        app.contact.confirm()
     app.contact.modify(Contact(name=ng(), lastname=ng(), nickname=ng(), company=ng()))
     app.contact.modify_additional(Contacts(middlename=ng(), title=ng(), address=ng()))
     app.contact.modify_telephone(Telephone(home=pg(), mobile=pg(), work=pg(), fax=pg()))
