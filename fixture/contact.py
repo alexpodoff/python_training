@@ -121,11 +121,14 @@ class ContactHelper:
         self.contact_page()
         return len(wd.find_elements_by_name("selected[]"))
 
-    # def get_contact_list(self):
-    #     wd = self.app.wd
-    #     contacts = []
-    #     self.contact_page()
-    #     for element in wd.find_elements_by_css_selector("td.center"):
-    #         for el in element.find_element_by_name("selected[]").get_attribute("value"):
-    #             contacts.append(Contact(id=el))
-    #     return contacts
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.contact_page()
+        contacts = []
+        rows = wd.find_elements_by_name("entry")
+        for row in rows:
+            cells = row.find_elements_by_tag_name("td")
+            id = cells[0].find_element_by_name("selected[]").get_attribute("value")
+           # name = cells[1].text
+            contacts.append(Contact(id=id))
+        return contacts
