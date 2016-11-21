@@ -129,6 +129,7 @@ class ContactHelper:
         for row in rows:
             cells = row.find_elements_by_tag_name("td")
             id = cells[0].find_element_by_name("selected[]").get_attribute("value")
-           # name = cells[1].text
-            contacts.append(Contact(id=id))
+            name = cells[2].text
+            lastname = cells[1].text
+            contacts.append(Contact(id=id, name=name, lastname=lastname))
         return contacts
