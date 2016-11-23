@@ -24,11 +24,22 @@ class ContactHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
+    def select_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
+
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.contact_page()
         # select 1st contact
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         # submit delition
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
@@ -81,11 +92,10 @@ class ContactHelper:
     def secondary(self, new_contact_data):
         self.fill_secondary_form(new_contact_data)
 
-    def modify(self, new_contact_data):
+    def modify_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.contact_page()
-        # select 1st contact
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
+        self.find_pic(index)
         self.fill_conact_form(new_contact_data)
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
         self.contact_page()
@@ -139,3 +149,13 @@ class ContactHelper:
                 lastname = cells[1].text
                 self.contact_cache.append(Contact(id=id, name=name, lastname=lastname))
         return list(self.contact_cache)
+
+    def find_pic(self, index):
+        wd = self.app.wd
+        pics = []
+        rows = wd.find_elements_by_name("entry")
+        for row in rows:
+            cells = row.find_elements_by_tag_name("td")
+            pic = cells[7]
+            pics.append(pic)
+        pics[index].find_element_by_tag_name("img").click()
