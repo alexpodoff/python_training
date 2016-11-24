@@ -10,24 +10,24 @@ class SessionHelper:
         return len(wd.find_elements_by_link_text("Logout")) > 0
 
     def is_logged_in_as(self, username):
+        return self.get_loged_user() == username
+
+    def get_loged_user(self):
         wd = self.app.wd
-        return wd.find_element_by_xpath("//div/div[1]/form/b").text == "("+username+")"
+        return wd.find_element_by_xpath("//div/div[1]/form/b").text[1:-1]
 
     def login(self, username, passwd):
         wd = self.app.wd
         self.app.open_home_page()
-        wd.find_element_by_id("content").click()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(passwd)
-        wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
-   #     wd.find_element_by_xpath("//div[@id='content']/form/input[4]").click()
+        wd.find_element_by_css_selector('input[type="submit"]').click()
 
     def enshure_login(self, username, passwd):
-        wd = self.app.wd
         if self.is_logged_in():
             if self.is_logged_in_as(username):
                 return
@@ -40,6 +40,5 @@ class SessionHelper:
         wd.find_element_by_link_text("Logout").click()
 
     def enshure_logout(self):
-        wd = self.app.wd
         if self.is_logged_in():
             self.logout()
