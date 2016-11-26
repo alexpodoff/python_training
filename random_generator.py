@@ -14,10 +14,14 @@ def name_generator():
 
 # generates random phone
 def phone_generator():
-    phone = "8"
+    phone = random.choice("8+(")
     for i in range(10):
-        n = random.choice(string.ascii_letters)
+        n = random.choice(string.digits)
         phone += n
+    if phone[0] == "(":
+        phone = phone[0:4] + ")" + phone[4:]
+    if phone[0] == "+":
+        phone = phone[0] + "7495" + phone[5:]
     return phone
 
 

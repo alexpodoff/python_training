@@ -1,8 +1,4 @@
 from model.contact import Contact
-from model.other import Other
-from model.other_contact import Contacts
-from model.secondary import Secondary
-from model.tel import Telephone
 from random_generator import mail_generator as mg
 from random_generator import name_generator as ng
 from random_generator import phone_generator as pg
@@ -16,7 +12,10 @@ def test_modify_first_contact(app):
         app.contact.confirm()
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
-    contact = Contact(name=ng(), lastname=ng(), nickname=ng(), company=ng())
+    contact = Contact(name=ng(), lastname=ng(), nickname=ng(), company=ng(),
+                      home=pg(), work=pg(), mobile=pg(), phone2=pg(),
+                      email=mg(), email2=mg(), email3=mg(), fax=pg(),
+                      middlename=ng(), title=ng(), address=ng(), address2=ng(), notes=ng())
     contact.id = old_contacts[index].id
     app.contact.modify_by_index(index, contact)
     assert len(old_contacts) == app.contact.count()
