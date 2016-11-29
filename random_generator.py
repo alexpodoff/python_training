@@ -3,13 +3,9 @@ import random
 import string
 
 # generates random name
-def name_generator():
-    name = ""
-    lenght = random.choice(string.digits)
-    for i in range(int(lenght)):
-        n = random.choice(string.ascii_letters)
-        name += n
-    return name
+def name_generator(maxlen):
+    symbols = string.ascii_letters + string.digits + " "*10 #+ string.punctuation
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
 # generates random phone
@@ -26,12 +22,6 @@ def phone_generator():
 
 
 # generates random mail
-def mail_generator():
-    left = ""
-    right = "rbt.ru"
-    lenght = random.choice(string.digits)
-    for item in range(int(lenght)):
-        n = random.choice(string.ascii_letters)
-        left += n
-    mail = left + "@" + right
-    return mail
+def mail_generator(maxlen, dom):
+    symbols = string.ascii_letters + string.digits + " "*10 #+ string.punctuation
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]) + dom
