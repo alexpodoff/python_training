@@ -4,7 +4,7 @@ import string
 
 # generates random name
 def name_generator(maxlen):
-    symbols = string.ascii_letters + string.digits + " "*10 #+ string.punctuation
+    symbols = string.ascii_letters + string.digits #+ " "*10 + string.punctuation
     return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
@@ -23,5 +23,5 @@ def phone_generator():
 
 # generates random mail
 def mail_generator(maxlen, dom):
-    symbols = string.ascii_letters + string.digits + " "*10 #+ string.punctuation
+    symbols = string.ascii_letters + string.digits #+ " "*10 + string.punctuation
     return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]) + dom

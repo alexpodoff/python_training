@@ -1,26 +1,15 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-import pytest
-from random_generator import mail_generator as mg
-from random_generator import name_generator as ng
-from random_generator import phone_generator as pg
 
-testdata = [Contact(name="", lastname="", nickname="")] + [
-    Contact(name=ng(10), lastname=ng(20), nickname=ng(20), company=ng(30),
-            home=pg(), work=pg(), mobile=pg(), phone2=pg(),
-            email=mg(10, "@rbt.ru"), email2=mg(12, "@mail.ru"), email3=mg(15, "@gmail.com"), fax=pg(),
-            middlename=ng(10), title=ng(10), address=ng(40))
-    for i in range(5)
-]
+
 # check condition
-@pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
-def test_addcontact(app, contact):
+def test_addcontact(app, json_contacts):
     old_contacts = app.contact.get_contact_list()
-    app.contact.create(contact)
+    app.contact.create(json_contacts)
     app.contact.confirm()
     assert len(old_contacts) + 1 == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    old_contacts.append(contact)
+    old_contacts.append(json_contacts)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
 
