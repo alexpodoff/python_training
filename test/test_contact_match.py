@@ -1,5 +1,6 @@
 import re
 from random import randrange
+from model.contact import Contact
 
 
 def test_all_on_home_page(app):
@@ -20,6 +21,24 @@ def test_phones_on_contact_view_page(app):
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert merge_phones_like_on_home_page(contact_from_view_page) == \
            merge_phones_like_on_home_page(contact_from_edit_page)
+
+
+def test_match_with_db(app, db):
+    contacts_from_db = db.get_contact_list()
+    phone_list_from_db = db.phones_from_db()
+    email_liset_from_db = db.emails_from_db()
+    phone_list = []
+    for phone in phone_list_from_db:
+        phone_list.append(merge_phones_like_on_home_page(phone))
+    email_list = []
+    for email in email_liset_from_db:
+        email_list.append(merge_mail_like_on_home_page(email))
+    contacts_from_home_page = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+    phones_from_home_page = [con.all_phones_from_home_page for con in contacts_from_home_page]
+    emails_from_home_page = [con.all_mail_from_home_page for con in contacts_from_home_page]
+    assert phone_list == phones_from_home_page
+    assert email_list == emails_from_home_page
+    assert contacts_from_db == contacts_from_home_page
 
 
 def merge_names(name, lastname):
