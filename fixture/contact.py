@@ -51,12 +51,28 @@ class ContactHelper:
     def delete_contact_by_id(self, id):
         wd = self.app.wd
         self.contact_page()
-        # select 1st contact
         self.select_contact_by_id(id)
-        # submit delition
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
         self.contact_cache = None
+
+    def add_contact_to_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.contact_page()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_xpath("//select[@name='to_group']/option[@value='%s']" % group_id).click()
+        wd.find_element_by_name("add").click()
+        self.contact_page()
+
+    def remove_contact_from_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.contact_page()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_xpath("//form[@id='right']/select//option[@value='%s']" % group_id)
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_name("remove").click()
+        self.contact_page()
+        wd.find_element_by_xpath("//select[@name='group']/option[text()='[all]']").click()
 
     def confirm(self):
         wd = self.app.wd
