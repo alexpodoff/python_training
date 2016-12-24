@@ -24,8 +24,7 @@ def test_add_contact_to_group(app, db):
     group = random.choice(groups)
     condition = base.get_contacts_in_group(Group(id=group.id))
     if contact in condition:
-        print("already there!")
-        # app.contact.remove_contact_from_group(contact.id, group.id)
+        app.contact.remove_contact_from_group(contact.id, group.id)
     print(index)
     print("group name = " + group.name)
     print("contact = " + contact.name)
