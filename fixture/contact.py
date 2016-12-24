@@ -68,7 +68,7 @@ class ContactHelper:
         wd = self.app.wd
         self.contact_page()
         self.select_contact_by_id(contact_id)
-        wd.find_element_by_xpath("//form[@id='right']/select//option[@value='%s']" % group_id)
+        wd.find_element_by_xpath("//form[@id='right']/select//option[@value='%s']" % group_id).click()
         self.select_contact_by_id(contact_id)
         wd.find_element_by_name("remove").click()
         self.contact_page()
