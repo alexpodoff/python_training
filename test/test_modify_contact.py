@@ -8,15 +8,11 @@ def test_modify_first_contact(app, db, json_contacts, check_ui):
         app.contact.confirm()
     old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
-    index = -1
-    for i in old_contacts:
-        index = index + 1
-        if i.id == contact.id:
-            break
     app.contact.modify_by_id(contact.id, json_contacts)
-    new_contacts = db.get_contact_list()
     json_contacts.id = contact.id
-    old_contacts[index] = json_contacts
+    new_contacts = db.get_contact_list()
+    old_contacts.remove(contact)
+    old_contacts.append(json_contacts)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
     if check_ui:
         assert sorted(

@@ -9,9 +9,8 @@ def test_modify_group_name(app, db, json_groups, check_ui):
         app.group.create(Group(name="test"))
     old_groups = db.get_group_list()
     group = random.choice(old_groups)
-    id = group.id
     app.group.modify_group_by_id(group.id, json_groups)
-    json_groups.id = id
+    json_groups.id = group.id
     new_groups = db.get_group_list()
     assert len(old_groups) == len(new_groups)
     old_groups.remove(group)

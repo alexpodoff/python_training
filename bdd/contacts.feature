@@ -20,7 +20,7 @@ Scenario: Delete a contact
 Scenario: Modify a contact
   Given a non-empty contact list
   Given a random contact from the list
-  Given a contact with <name>, <lastname>, <home> and <email>
+  Given a modify info with <name>, <lastname>, <home> and <email>
   When I modify the contact from the list
   Then the new contact list is equal to the old list with the modified contact
 
