@@ -31,7 +31,7 @@ def verify_contact_added(db, contact_list, new_contact):
 def non_empty_contact_list(db, app):
     if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(name="some name"))
-    return db.get_contact_list()
+    return app.contact.get_contact_list()
 
 
 @given('a random contact from the list')
@@ -47,7 +47,7 @@ def delete_contact(app, random_contact):
 @then('the new contact list is equal to the old list without the deleted contact')
 def verify_contact_deleted(db, non_empty_contact_list, random_contact, app, check_ui):
     old_contacts = non_empty_contact_list
-    new_contacts = db.get_contact_list()
+    new_contacts = app.contact.get_contact_list()
     assert len(old_contacts) - 1 == len(new_contacts)
     old_contacts.remove(random_contact)
     assert old_contacts == new_contacts
@@ -67,7 +67,7 @@ def modify_contact(app, random_contact, mod_contact):
 
 
 @then('the new contact list is equal to the old list with the modified contact')
-def verify_contact_deleted(db, non_empty_contact_list, random_contact, mod_contact, app, check_ui):
+def verify_contact_modified(db, non_empty_contact_list, random_contact, mod_contact, app, check_ui):
     old_contacts = non_empty_contact_list
     new_contact.id = random_contact.id
     new_contacts = db.get_contact_list()
