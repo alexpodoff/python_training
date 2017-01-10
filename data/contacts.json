@@ -1,28 +1,5 @@
 [
   {
-    "middlename": null,
-    "py/object": "model.contact.Contact",
-    "address2": null,
-    "lastname": "",
-    "id": null,
-    "email": null,
-    "address": null,
-    "title": null,
-    "name": "",
-    "work": null,
-    "email3": null,
-    "mobile": null,
-    "all_phones_from_home_page": null,
-    "all_mail_from_home_page": null,
-    "phone2": null,
-    "home": null,
-    "nickname": "",
-    "company": null,
-    "email2": null,
-    "notes": null,
-    "fax": null
-  },
-  {
     "middlename": "fZho6wNK",
     "py/object": "model.contact.Contact",
     "address2": null,

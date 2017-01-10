@@ -1,5 +1,6 @@
 from model.contact import Contact
 import re
+import time
 
 class ContactHelper:
 
@@ -151,9 +152,11 @@ class ContactHelper:
         self.contact_page()
         rows = wd.find_elements_by_name("entry")
         index = -1
-        for element in rows:
+        for row in rows:
+            cells = row.find_elements_by_tag_name("td")
+            row_id = cells[0].find_element_by_name("selected[]").get_attribute("value")
             index = index + 1
-            if element == id:
+            if row_id == id:
                 break
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[7]

@@ -15,3 +15,15 @@ Scenario: Delete a contact
   Given a random contact from the list
   When I delete the contact from the list
   Then the new contact list is equal to the old list without the deleted contact
+
+
+Scenario: Modify a contact
+  Given a non-empty contact list
+  Given a random contact from the list
+  Given a contact with <name>, <lastname>, <home> and <email>
+  When I modify the contact from the list
+  Then the new contact list is equal to the old list with the modified contact
+
+    Examples:
+  | name  | lastname  | home      | email           |
+  | new1  | newlast1  | 928212281 | new_email1@m.ru |
